@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma educativa EPET 2026 sobre Sistemas de Gestión de Calidad del Software: ISO 25000, SDLC, modelos tradicionales y metodologías ágiles.">
+  <title>SGCS2026 | Sistemas de Gestión de Calidad del Software – EPET 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    /* Aplica el tema guardado antes de pintar para evitar parpadeo */
+    try {
+      var t = localStorage.getItem('sgcs-theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <!-- Íconos SVG reutilizables -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2"/><path d="M3 12A9 9 0 0 1 18.5 5.8"/><path d="M19 2v4h-4"/><path d="M5 22v-4h4"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 8-2 6-6 2 2-6z"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 5a2 2 0 0 1 2-2h7v18H5a2 2 0 0 1-2-2z" fill="currentColor"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 24 24"><rect x="8" y="6" width="8" height="14" rx="4"/><path d="M12 10v10M8 13H4M20 13h-4M8 17l-3 2M16 17l3 2M8 9 5 7M16 9l3-2M10 6 9 3M14 6l1-3"/></symbol>
+    <symbol id="i-lines" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4 19a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-10V3"/><path d="M7 15h10"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 2h6v4H9zM9 11h6M9 15h6"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-5-5"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  </svg>
+
+  <a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar" id="navbar">
+    <a href="#inicio" class="logo">SGCS2026</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar entre tema claro y oscuro"><svg class="icon"><use href="#i-theme"/></svg></button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menu" aria-label="Navegación principal">
+      <div class="menu-item">
+        <a href="#inicio" class="active" data-spy="inicio">Inicio</a>
+        <div class="submenu">
+          <a href="#introduccion">Introducción</a>
+          <a href="#accesos">Accesos rápidos</a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <a href="#calidad" data-spy="calidad">Gestión de la Calidad</a>
+        <div class="submenu">
+          <a href="#fundamentos">Fundamentos</a>
+          <a href="#tecnicas">Técnicas de aseguramiento</a>
+          <a href="#herramientas">Herramientas de calidad</a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <a href="#procesos" data-spy="procesos">Procesos de Desarrollo</a>
+        <div class="submenu">
+          <a href="#sdlc">Ciclo de vida (SDLC)</a>
+          <a href="#modelos">Modelos tradicionales</a>
+          <a href="#ilustraciones-tradicionales">Ilustraciones de los modelos</a>
+          <a href="#agiles">Metodologías Ágiles</a>
+          <a href="#manifiesto">Manifiesto Ágil</a>
+          <a href="#ilustraciones-agiles">Ilustraciones ágiles</a>
+          <a href="#scrum">Scrum en detalle</a>
+          <a href="#kanban">Kanban en detalle</a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <a href="#recursos" data-spy="recursos">Recursos y Aprendizaje</a>
+        <div class="submenu">
+          <a href="#glosario">Glosario</a>
+          <a href="#faq">Preguntas frecuentes</a>
+          <a href="#enlaces">Enlaces de interés</a>
+          <a href="#ejercicios">Ejercicios</a>
+          <a href="#comparador">Comparador</a>
+          <a href="#encuesta">Encuesta</a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <a href="#contacto" data-spy="contacto">Sobre Nosotros / Contacto</a>
+        <div class="submenu">
+          <a href="#nosotros">Grupo Test Forge</a>
+          <a href="#formulario">Formulario de contacto</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ================= INICIO ================= -->
+    <div id="inicio" data-section="inicio">
+      <section class="hero">
+        <span class="badge">Plataforma Educativa EPET 2026</span>
+        <h1>Sistemas de Gestión de Calidad del Software</h1>
+        <p>Aprende los fundamentos de la calidad del software, estándares internacionales (ISO 25000),<br> ciclos de vida y metodologías ágiles a través de herramientas interactivas.</p>
+      </section>
+
+      <div class="hero-buttons">
+        <a href="#agiles" class="btn btn-primary">Explorar Metodologías</a>
+        <a href="#comparador" class="btn btn-outline">Probar Comparador</a>
+      </div>
+
+      <!-- Introducción + logo de la empresa -->
+      <section class="intro-row" id="introduccion" aria-labelledby="intro-title">
+        <div class="intro-card" tabindex="0">
+          <div class="intro-front">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></span>
+            <h2 id="intro-title">Introducción</h2>
+            <span class="tag">¿Qué vas a encontrar?</span>
+            <p class="intro-hint">Pasá el cursor por encima (o tocá) para leer la introducción.</p>
+          </div>
+          <div class="intro-text">
+            <p>SGCS2026 es la plataforma educativa de <strong>Test Forge</strong> para aprender cómo se asegura la calidad del software.</p>
+            <p>Vas a recorrer los fundamentos y las normas ISO, las técnicas y herramientas de prueba, el ciclo de vida del desarrollo con sus modelos tradicionales y las metodologías ágiles: Scrum, Kanban y XP.</p>
+          </div>
+        </div>
+        <div class="logo-wrap">
+          <!-- Una versión por tema: el texto del logo es oscuro en el tema claro y blanco en el oscuro -->
+          <img class="logo-img logo-light" src="images/logo-testforge-light.png" alt="Logo de Test Forge: espiral metálica en tonos cobre y azul con el texto TEST FORGE">
+          <img class="logo-img logo-dark" src="images/logo-testforge-dark.png" alt="Logo de Test Forge: espiral metálica en tonos cobre y azul con el texto TEST FORGE">
+        </div>
+      </section>
+
+      <section class="quick" id="accesos" aria-labelledby="quick-title">
+        <h2 id="quick-title" class="visually-hidden">Accesos rápidos</h2>
+        <div class="cards">
+          <a class="card" href="#fundamentos">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-layers"/></svg></span>
+            <h3>Fundamentos</h3>
+            <span class="tag">Calidad · ISO 25000</span>
+            <p>Conceptos, métricas y normas.</p>
+          </a>
+          <a class="card" href="#tecnicas">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+            <h3>Técnicas</h3>
+            <span class="tag">Aseguramiento de la calidad</span>
+            <p>Niveles y técnicas de prueba.</p>
+          </a>
+          <a class="card" href="#herramientas">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-sliders"/></svg></span>
+            <h3>Herramientas</h3>
+            <span class="tag">Gestión de Calidad</span>
+            <p>Bug trackers, linters y testing.</p>
+          </a>
+          <a class="card" href="#sdlc">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-cycle"/></svg></span>
+            <h3>SDLC</h3>
+            <span class="tag">Procesos de Desarrollo</span>
+            <p>Las 6 etapas del ciclo de vida.</p>
+          </a>
+          <a class="card" href="#modelos">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-columns"/></svg></span>
+            <h3>Modelos tradicionales</h3>
+            <span class="tag">Cascada · V · Iterativo</span>
+            <p>Ventajas y desventajas.</p>
+          </a>
+          <a class="card" href="#agiles">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-zap"/></svg></span>
+            <h3>Ágiles</h3>
+            <span class="tag">Scrum · Kanban · XP</span>
+            <p>Marcos de trabajo y Manifiesto.</p>
+          </a>
+          <a class="card" href="#glosario">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></span>
+            <h3>Recursos</h3>
+            <span class="tag">Recursos y Aprendizaje</span>
+            <p>Glosario, FAQ y ejercicios.</p>
+          </a>
+          <a class="card" href="#comparador">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span>
+            <h3>Comparador</h3>
+            <span class="tag">Herramienta interactiva</span>
+            <p>Metodologías lado a lado.</p>
+          </a>
+          <a class="card" href="#encuesta">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-compass"/></svg></span>
+            <h3>Encuesta</h3>
+            <span class="tag">Herramienta interactiva</span>
+            <p>¿Qué metodología va con vos?</p>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= 1. GESTIÓN DE LA CALIDAD ================= -->
+    <section class="section" id="calidad" data-section="calidad">
+      <h2>1. Gestión de Calidad y Herramientas</h2>
+      <p class="subtitle">Fundamentos, técnicas de aseguramiento y herramientas de calidad</p>
+
+      <nav class="subnav" aria-label="Subsecciones de Gestión de la Calidad">
+        <a href="#fundamentos" class="filter">Fundamentos</a>
+        <a href="#tecnicas" class="filter">Técnicas de aseguramiento</a>
+        <a href="#herramientas" class="filter">Herramientas</a>
+      </nav>
+
+      <!-- Fundamentos -->
+      <div class="block wrap" id="fundamentos">
+        <h3 class="sub-title">1.1 Fundamentos de la calidad</h3>
+        <p class="subtitle">Conceptos clave, métricas y modelos ISO</p>
+
+        <div class="tabs" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Fundamentos de la calidad">
+            <button class="filter" role="tab" id="tab-cal" aria-controls="panel-cal" aria-selected="true">Calidad del software</button>
+            <button class="filter" role="tab" id="tab-met" aria-controls="panel-met" aria-selected="false" tabindex="-1">Métricas</button>
+            <button class="filter" role="tab" id="tab-9126" aria-controls="panel-9126" aria-selected="false" tabindex="-1">ISO/IEC 9126</button>
+            <button class="filter" role="tab" id="tab-25000" aria-controls="panel-25000" aria-selected="false" tabindex="-1">ISO/IEC 25000</button>
+          </div>
+
+          <div class="panel box" role="tabpanel" id="panel-cal" aria-labelledby="tab-cal">
+            <h4>¿Qué es la calidad del software?</h4>
+            <p>Es el grado en que un producto de software satisface los requisitos establecidos y las necesidades implícitas de sus usuarios. Se evalúa desde dos miradas complementarias:</p>
+            <ul>
+              <li><strong>Calidad del producto:</strong> lo que el software hace y cómo lo hace (funcionalidad, rendimiento, seguridad…).</li>
+              <li><strong>Calidad del proceso:</strong> cómo se construye el software; un buen proceso aumenta la probabilidad de un buen producto.</li>
+            </ul>
+            <p>Un <strong>Sistema de Gestión de Calidad (SGC)</strong> reúne las políticas, procesos y responsabilidades que una organización usa para planificar, asegurar, controlar y mejorar la calidad de forma continua (ciclo PDCA: Planificar, Hacer, Verificar, Actuar).</p>
+          </div>
+
+          <div class="panel box" role="tabpanel" id="panel-met" aria-labelledby="tab-met" hidden>
+            <h4>Métricas de calidad</h4>
+            <p>Una métrica es una medida cuantitativa de un atributo del software o del proceso. Permiten tomar decisiones basadas en datos.</p>
+            <ul>
+              <li><strong>Densidad de defectos:</strong> defectos encontrados / tamaño (por ejemplo, por cada 1000 líneas de código).</li>
+              <li><strong>Cobertura de pruebas:</strong> porcentaje del código ejecutado por las pruebas automatizadas.</li>
+              <li><strong>Complejidad ciclomática:</strong> cantidad de caminos independientes de un módulo; valores altos dificultan el mantenimiento.</li>
+              <li><strong>MTBF:</strong> tiempo medio entre fallos, indicador de fiabilidad.</li>
+              <li><strong>Velocidad del equipo:</strong> trabajo completado por iteración (métrica de proceso en Scrum).</li>
+            </ul>
+          </div>
+
+          <div class="panel box" role="tabpanel" id="panel-9126" aria-labelledby="tab-9126" hidden>
+            <h4>ISO/IEC 9126</h4>
+            <p>Norma internacional (publicada en 1991 y revisada en 2001) que definía un modelo de calidad del producto con <strong>6 características</strong>:</p>
+            <ol class="cols-2">
+              <li>Funcionalidad</li>
+              <li>Fiabilidad</li>
+              <li>Usabilidad</li>
+              <li>Eficiencia</li>
+              <li>Mantenibilidad</li>
+              <li>Portabilidad</li>
+            </ol>
+            <p>Fue reemplazada por la familia ISO/IEC 25000 (SQuaRE).</p>
+          </div>
+
+          <div class="panel box" role="tabpanel" id="panel-25000" aria-labelledby="tab-25000" hidden>
+            <h4>ISO/IEC 25000 – SQuaRE</h4>
+            <p>Familia de normas <em>Systems and software Quality Requirements and Evaluation</em>. Su modelo de calidad del producto (ISO/IEC 25010) define <strong>8 características</strong>:</p>
+            <ol class="cols-2">
+              <li>Adecuación funcional</li>
+              <li>Eficiencia de desempeño</li>
+              <li>Compatibilidad</li>
+              <li>Usabilidad</li>
+              <li>Fiabilidad</li>
+              <li>Seguridad</li>
+              <li>Mantenibilidad</li>
+              <li>Portabilidad</li>
+            </ol>
+            <p>Respecto de ISO 9126 incorpora <strong>Seguridad</strong> y <strong>Compatibilidad</strong> como características propias. La revisión de 2023 de ISO/IEC 25010 agregó además la <strong>Protección</strong> (<em>safety</em>) y renombró algunas características.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Técnicas -->
+      <div class="block wrap" id="tecnicas">
+        <h3 class="sub-title">1.2 Técnicas de aseguramiento de la calidad</h3>
+        <p class="subtitle">Pasá el mouse o tocá cada tarjeta para ver su descripción</p>
+
+        <div class="grid-3">
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></span><strong>Pruebas unitarias</strong><small>Nivel de prueba</small></span>
+              <span class="face back">Verifican la unidad más pequeña de código (función, método o clase) de forma aislada. Suelen ser automáticas.</span>
+            </span>
+          </button>
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-link"/></svg></span><strong>Pruebas de integración</strong><small>Nivel de prueba</small></span>
+              <span class="face back">Comprueban que varios módulos funcionan bien juntos y que las interfaces entre ellos son correctas.</span>
+            </span>
+          </button>
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-monitor"/></svg></span><strong>Pruebas de sistema</strong><small>Nivel de prueba</small></span>
+              <span class="face back">Evalúan el sistema completo contra los requisitos funcionales y no funcionales (rendimiento, seguridad…).</span>
+            </span>
+          </button>
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><strong>Pruebas de aceptación</strong><small>Nivel de prueba</small></span>
+              <span class="face back">El cliente o usuario valida que el software cumple sus necesidades antes de aceptarlo.</span>
+            </span>
+          </button>
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-contrast"/></svg></span><strong>Caja negra / caja blanca</strong><small>Técnica de diseño</small></span>
+              <span class="face back">Caja negra: se prueba por entradas y salidas sin ver el código. Caja blanca: se diseñan casos a partir de la estructura interna.</span>
+            </span>
+          </button>
+          <button class="flip" aria-pressed="false">
+            <span class="flip-inner">
+              <span class="face front"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-eye"/></svg></span><strong>Revisiones e inspecciones</strong><small>Técnica estática</small></span>
+              <span class="face back">Análisis del código o documentos sin ejecutarlos (revisión de pares, inspecciones formales, análisis estático).</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Herramientas -->
+      <div class="block" id="herramientas">
+        <h3 class="sub-title">1.3 Herramientas de calidad</h3>
+        <p class="subtitle">Filtra las herramientas de calidad según su categoría</p>
+
+        <div class="filters" role="group" aria-label="Filtrar herramientas">
+          <button class="filter active" data-filter="all" aria-pressed="true">Todas</button>
+          <button class="filter" data-filter="bug" aria-pressed="false">Bug Trackers</button>
+          <button class="filter" data-filter="lint" aria-pressed="false">Linters / Estático</button>
+          <button class="filter" data-filter="test" aria-pressed="false">Testing &amp; Automation</button>
+          <button class="filter" data-filter="tm" aria-pressed="false">Test Management</button>
+        </div>
+
+        <div class="cards" id="toolCards">
+          <article class="card" data-cat="bug">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-bug"/></svg></span>
+            <h4>Jira</h4>
+            <span class="tag">Bug Tracker</span>
+            <p>Gestión y seguimiento de incidencias.</p>
+          </article>
+          <article class="card" data-cat="lint">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-lines"/></svg></span>
+            <h4>ESLint</h4>
+            <span class="tag">Linters / Estático</span>
+            <p>Análisis automático de código.</p>
+          </article>
+          <article class="card" data-cat="test">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-play"/></svg></span>
+            <h4>Selenium</h4>
+            <span class="tag">Testing &amp; Automation</span>
+            <p>Automatización de pruebas web.</p>
+          </article>
+          <article class="card" data-cat="bug">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-bug"/></svg></span>
+            <h4>Bugzilla</h4>
+            <span class="tag">Bug Tracker</span>
+            <p>Seguimiento de defectos open source.</p>
+          </article>
+          <article class="card" data-cat="lint">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span>
+            <h4>SonarQube</h4>
+            <span class="tag">Linters / Estático</span>
+            <p>Inspección continua de calidad.</p>
+          </article>
+          <article class="card" data-cat="test">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span>
+            <h4>Cypress</h4>
+            <span class="tag">Testing &amp; Automation</span>
+            <p>Pruebas end-to-end en el navegador.</p>
+          </article>
+          <article class="card" data-cat="test">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-flask"/></svg></span>
+            <h4>JUnit</h4>
+            <span class="tag">Testing &amp; Automation</span>
+            <p>Framework de pruebas unitarias.</p>
+          </article>
+          <article class="card" data-cat="tm">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-clipboard"/></svg></span>
+            <h4>TestRail</h4>
+            <span class="tag">Test Management</span>
+            <p>Gestión de casos y planes de prueba.</p>
+          </article>
+          <article class="card" data-cat="tm">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-folder"/></svg></span>
+            <h4>Zephyr</h4>
+            <span class="tag">Test Management</span>
+            <p>Gestión de pruebas integrada a Jira.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. PROCESOS DE DESARROLLO ================= -->
+    <section class="section soft" id="procesos" data-section="procesos">
+      <h2>2. Procesos de Desarrollo</h2>
+      <p class="subtitle">Ciclo de vida del software y modelos tradicionales</p>
+
+      <nav class="subnav" aria-label="Subsecciones de Procesos de Desarrollo">
+        <a href="#sdlc" class="filter">SDLC</a>
+        <a href="#cascada" class="filter">Cascada</a>
+        <a href="#modelo-v" class="filter">Modelo en V</a>
+        <a href="#iterativo" class="filter">Iterativo / Incremental</a>
+        <a href="#ilustraciones-tradicionales" class="filter">Ilustraciones</a>
+      </nav>
+
+      <!-- SDLC -->
+      <div class="block wrap" id="sdlc">
+        <h3 class="sub-title">2.1 Ciclo de vida del desarrollo (SDLC)</h3>
+        <p class="subtitle">Las 6 etapas por las que pasa todo producto de software</p>
+
+        <ol class="timeline">
+          <li><span class="step-num">1</span><div class="box"><h4>Requisitos</h4><p>Se relevan y documentan las necesidades del cliente y los usuarios.</p></div></li>
+          <li><span class="step-num">2</span><div class="box"><h4>Diseño</h4><p>Se define la arquitectura, los datos y las interfaces de la solución.</p></div></li>
+          <li><span class="step-num">3</span><div class="box"><h4>Desarrollo</h4><p>Se escribe el código siguiendo el diseño y los estándares acordados.</p></div></li>
+          <li><span class="step-num">4</span><div class="box"><h4>Pruebas</h4><p>Se verifica y valida el software para encontrar defectos antes de entregarlo.</p></div></li>
+          <li><span class="step-num">5</span><div class="box"><h4>Despliegue</h4><p>Se instala el sistema en el entorno de producción y se pone a disposición de los usuarios.</p></div></li>
+          <li><span class="step-num">6</span><div class="box"><h4>Mantenimiento</h4><p>Se corrigen errores, se adapta a cambios y se agregan mejoras.</p></div></li>
+        </ol>
+      </div>
+
+      <!-- Modelos tradicionales -->
+      <div class="block wrap" id="modelos">
+        <h3 class="sub-title">2.2 Modelos tradicionales</h3>
+        <p class="subtitle">Ventajas y desventajas de cada modelo</p>
+
+        <article class="box model" id="cascada">
+          <h4>Modelo en Cascada</h4>
+          <p>Las etapas se ejecutan de forma secuencial: no se pasa a la siguiente hasta terminar la anterior. Cada fase genera documentación que sirve de entrada a la próxima.</p>
+          <div class="pros-cons">
+            <div><h5>Ventajas</h5><ul class="pros"><li>Simple de entender y gestionar.</li><li>Etapas y entregables bien definidos.</li><li>Útil con requisitos estables y claros.</li></ul></div>
+            <div><h5>Desventajas</h5><ul class="cons"><li>Poco flexible ante cambios.</li><li>El cliente ve el producto recién al final.</li><li>Los errores se detectan tarde y son costosos.</li></ul></div>
+          </div>
+        </article>
+
+        <article class="box model" id="modelo-v">
+          <h4>Modelo en V</h4>
+          <p>Variante de la cascada que asocia cada etapa de desarrollo con un nivel de prueba: los requisitos con la aceptación, el diseño del sistema con las pruebas de sistema, el diseño detallado con la integración y la codificación con las pruebas unitarias.</p>
+          <div class="pros-cons">
+            <div><h5>Ventajas</h5><ul class="pros"><li>Las pruebas se planifican desde el inicio.</li><li>Alta trazabilidad entre requisitos y pruebas.</li><li>Adecuado para sistemas críticos.</li></ul></div>
+            <div><h5>Desventajas</h5><ul class="cons"><li>Igual de rígido que la cascada.</li><li>No produce prototipos tempranos.</li><li>Cambios tardíos implican rehacer documentación y pruebas.</li></ul></div>
+          </div>
+        </article>
+
+        <article class="box model" id="iterativo">
+          <h4>Modelo Iterativo / Incremental</h4>
+          <p>El sistema se construye en varias iteraciones; cada una entrega un incremento funcional que se suma a lo anterior y recibe retroalimentación del cliente.</p>
+          <div class="pros-cons">
+            <div><h5>Ventajas</h5><ul class="pros"><li>Entregas tempranas con valor.</li><li>Facilita incorporar cambios entre iteraciones.</li><li>Los riesgos se detectan antes.</li></ul></div>
+            <div><h5>Desventajas</h5><ul class="cons"><li>Requiere una buena arquitectura desde el inicio.</li><li>Más difícil estimar el costo total.</li><li>Necesita participación constante del cliente.</li></ul></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Ilustraciones -->
+      <div class="block wrap" id="ilustraciones-tradicionales">
+        <h3 class="sub-title">2.3 Ilustraciones de los modelos</h3>
+        <p class="subtitle">Hacé clic en una imagen para ampliarla</p>
+
+        <div class="gallery">
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/cascada.svg" alt="Diagrama del modelo en cascada: Requisitos, Diseño, Implementación, Pruebas y Mantenimiento en forma de escalera descendente" loading="lazy"></button>
+            <figcaption>Modelo en Cascada</figcaption>
+          </figure>
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/modelo-v.svg" alt="Diagrama del modelo en V: a la izquierda las fases de desarrollo descendentes y a la derecha los niveles de prueba ascendentes, unidos por líneas punteadas" loading="lazy"></button>
+            <figcaption>Modelo en V</figcaption>
+          </figure>
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/iterativo.svg" alt="Diagrama del modelo iterativo incremental: tres incrementos que repiten planificar, diseñar, construir y probar, cada uno con su entrega" loading="lazy"></button>
+            <figcaption>Modelo Iterativo / Incremental</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. METODOLOGÍAS ÁGILES ================= -->
+    <section class="section" id="agiles" data-section="procesos">
+      <h2>3. Metodologías Ágiles</h2>
+      <p class="subtitle">Scrum, Kanban, XP y el Manifiesto Ágil</p>
+
+      <div class="block wrap" id="marcos">
+        <h3 class="sub-title">3.1 Marcos de trabajo ágiles</h3>
+        <div class="grid-3">
+          <article class="box">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-cycle"/></svg></span>
+            <h4>Scrum</h4>
+            <span class="tag">Iterativo · Sprints</span>
+            <p>Organiza el trabajo en Sprints de 1 a 4 semanas, con roles, eventos y artefactos definidos.</p>
+            <a href="#scrum" class="more">Ver en detalle</a>
+          </article>
+          <article class="box">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-columns"/></svg></span>
+            <h4>Kanban</h4>
+            <span class="tag">Flujo continuo</span>
+            <p>Visualiza el trabajo en un tablero y limita el trabajo en curso (WIP) para mejorar el flujo.</p>
+            <a href="#kanban" class="more">Ver en detalle</a>
+          </article>
+          <article class="box">
+            <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-code"/></svg></span>
+            <h4>XP</h4>
+            <span class="tag">Extreme Programming</span>
+            <p>Se enfoca en prácticas técnicas: TDD, programación en parejas, integración continua y refactorización.</p>
+            <a href="#ilustraciones-agiles" class="more">Ver bucle XP</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="block wrap" id="manifiesto">
+        <h3 class="sub-title">3.2 Manifiesto Ágil (2001)</h3>
+        <p class="subtitle">4 valores y 12 principios</p>
+
+        <div class="values">
+          <div class="box value"><strong>Individuos e interacciones</strong><span>sobre procesos y herramientas</span></div>
+          <div class="box value"><strong>Software funcionando</strong><span>sobre documentación extensiva</span></div>
+          <div class="box value"><strong>Colaboración con el cliente</strong><span>sobre negociación contractual</span></div>
+          <div class="box value"><strong>Respuesta ante el cambio</strong><span>sobre seguir un plan</span></div>
+        </div>
+        <p class="note">Aunque valoramos los elementos de la derecha, valoramos más los de la izquierda.</p>
+
+        <ol class="principles box">
+          <li>Nuestra mayor prioridad es satisfacer al cliente mediante la entrega temprana y continua de software con valor.</li>
+          <li>Aceptamos que los requisitos cambien, incluso en etapas tardías del desarrollo, para dar ventaja competitiva al cliente.</li>
+          <li>Entregamos software funcional frecuentemente, entre dos semanas y dos meses, con preferencia por el período más corto.</li>
+          <li>Los responsables de negocio y los desarrolladores trabajamos juntos de forma cotidiana durante todo el proyecto.</li>
+          <li>Los proyectos se desarrollan en torno a individuos motivados, a quienes se les da el entorno, el apoyo y la confianza necesarios.</li>
+          <li>La conversación cara a cara es el método más eficiente y efectivo de comunicar información al equipo.</li>
+          <li>El software funcionando es la medida principal de progreso.</li>
+          <li>Los procesos ágiles promueven el desarrollo sostenible, con un ritmo constante que pueda mantenerse indefinidamente.</li>
+          <li>La atención continua a la excelencia técnica y al buen diseño mejora la agilidad.</li>
+          <li>La simplicidad, el arte de maximizar la cantidad de trabajo no realizado, es esencial.</li>
+          <li>Las mejores arquitecturas, requisitos y diseños emergen de equipos autoorganizados.</li>
+          <li>A intervalos regulares el equipo reflexiona sobre cómo ser más efectivo y ajusta su comportamiento en consecuencia.</li>
+        </ol>
+      </div>
+
+      <div class="block wrap" id="ilustraciones-agiles">
+        <h3 class="sub-title">3.3 Ilustraciones de metodologías ágiles</h3>
+        <p class="subtitle">Hacé clic en una imagen para ampliarla</p>
+        <div class="gallery">
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/scrum.svg" alt="Ciclo del Sprint de Scrum: Product Backlog, Sprint Planning, Sprint Backlog, Sprint con Daily Scrum, Sprint Review y Retrospectiva, que vuelve al Product Backlog" loading="lazy"></button>
+            <figcaption>Ciclo del Sprint (Scrum)</figcaption>
+          </figure>
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/kanban.svg" alt="Tablero Kanban con columnas Por hacer, En progreso con límite WIP 3, Revisión con límite WIP 2 y Hecho" loading="lazy"></button>
+            <figcaption>Flujo Kanban</figcaption>
+          </figure>
+          <figure>
+            <button class="zoom" data-lightbox><img src="images/xp.svg" alt="Bucles concéntricos de retroalimentación de XP: plan de release en meses, iteración en semanas, pruebas de aceptación en días, programación en parejas en horas y TDD en minutos" loading="lazy"></button>
+            <figcaption>Bucle de retroalimentación XP</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Scrum -->
+      <div class="block wrap" id="scrum">
+        <h3 class="sub-title">3.4 Scrum en detalle</h3>
+        <p class="subtitle">Roles, eventos y artefactos</p>
+
+        <div class="grid-3 detail">
+          <article class="box">
+            <h4>Roles</h4>
+            <ul>
+              <li><strong>Product Owner:</strong> maximiza el valor del producto y gestiona el Product Backlog.</li>
+              <li><strong>Scrum Master:</strong> facilita el proceso y elimina impedimentos.</li>
+              <li><strong>Developers:</strong> construyen el Incremento en cada Sprint.</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h4>Eventos</h4>
+            <ul>
+              <li><strong>Sprint:</strong> 1 a 4 semanas.</li>
+              <li><strong>Sprint Planning:</strong> máx. 8 h.</li>
+              <li><strong>Daily Scrum:</strong> 15 minutos.</li>
+              <li><strong>Sprint Review:</strong> máx. 4 h.</li>
+              <li><strong>Retrospectiva:</strong> máx. 3 h.</li>
+            </ul>
+            <p>Los máximos en horas corresponden a un Sprint de un mes.</p>
+          </article>
+          <article class="box">
+            <h4>Artefactos</h4>
+            <ul>
+              <li><strong>Product Backlog.</strong> Compromiso: Objetivo del Producto.</li>
+              <li><strong>Sprint Backlog.</strong> Compromiso: Objetivo del Sprint.</li>
+              <li><strong>Incremento.</strong> Compromiso: Definición de Terminado.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h4 class="mini-title">Diagrama de Sprint interactivo</h4>
+        <p class="subtitle">Seleccioná cada paso del ciclo</p>
+        <div class="sprint" id="sprintDiagram">
+          <div class="sprint-steps" role="tablist" aria-label="Pasos del Sprint"></div>
+          <div class="box sprint-detail" id="sprintDetail" role="tabpanel" aria-live="polite"></div>
+          <div class="sprint-nav">
+            <button class="btn btn-outline" id="sprintPrev">Anterior</button>
+            <button class="btn btn-primary" id="sprintNext">Siguiente</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanban -->
+      <div class="block wrap" id="kanban">
+        <h3 class="sub-title">3.5 Kanban en detalle</h3>
+        <p class="subtitle">Arrastrá las tarjetas entre columnas (o usá las flechas). La columna «En progreso» tiene un límite WIP de 3.</p>
+
+        <form class="kanban-add" id="kanbanAdd">
+          <label for="kanbanInput" class="visually-hidden">Nueva tarea</label>
+          <input type="text" id="kanbanInput" placeholder="Nueva tarea…" maxlength="60">
+          <button class="btn btn-primary" type="submit">Agregar</button>
+        </form>
+        <p class="kanban-msg" id="kanbanMsg" role="status" aria-live="polite"></p>
+
+        <div class="board" id="board">
+          <div class="column" data-col="todo">
+            <h4>Por hacer <span class="count"></span></h4>
+            <ul class="col-list">
+              <li class="kcard" draggable="true">Redactar historias de usuario</li>
+              <li class="kcard" draggable="true">Configurar ESLint</li>
+              <li class="kcard" draggable="true">Diseñar casos de prueba</li>
+            </ul>
+          </div>
+          <div class="column" data-col="doing" data-wip="3">
+            <h4>En progreso <span class="count"></span></h4>
+            <ul class="col-list">
+              <li class="kcard" draggable="true">Maquetar página de inicio</li>
+              <li class="kcard" draggable="true">Pruebas unitarias del login</li>
+            </ul>
+          </div>
+          <div class="column" data-col="done">
+            <h4>Hecho <span class="count"></span></h4>
+            <ul class="col-list">
+              <li class="kcard" draggable="true">Definir el backlog</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabla de contenidos flotante -->
+    <aside class="toc" id="toc" aria-label="Contenido de Metodologías Ágiles">
+      <p>En esta sección</p>
+      <a href="#marcos">Marcos ágiles</a>
+      <a href="#manifiesto">Manifiesto Ágil</a>
+      <a href="#ilustraciones-agiles">Ilustraciones</a>
+      <a href="#scrum">Scrum</a>
+      <a href="#kanban">Kanban</a>
+    </aside>
+
+    <!-- ================= 4. RECURSOS Y APRENDIZAJE ================= -->
+    <section class="section soft" id="recursos" data-section="recursos">
+      <h2>4. Recursos y Aprendizaje</h2>
+      <p class="subtitle">Glosario, preguntas frecuentes, enlaces, ejercicios y herramientas interactivas</p>
+
+      <nav class="subnav" aria-label="Subsecciones de Recursos">
+        <a href="#glosario" class="filter">Glosario</a>
+        <a href="#faq" class="filter">FAQ</a>
+        <a href="#enlaces" class="filter">Enlaces</a>
+        <a href="#ejercicios" class="filter">Ejercicios</a>
+        <a href="#comparador" class="filter">Comparador</a>
+        <a href="#encuesta" class="filter">Encuesta</a>
+      </nav>
+
+      <!-- Glosario -->
+      <div class="block wrap" id="glosario">
+        <h3 class="sub-title">4.1 Glosario</h3>
+        <p class="subtitle">Buscá un término o saltá a una letra</p>
+
+        <div class="search">
+          <label for="glossarySearch" class="visually-hidden">Buscar en el glosario</label>
+          <input type="search" id="glossarySearch" placeholder="Buscar término… (ej. Sprint)" autocomplete="off">
+        </div>
+        <nav class="letters" id="glossaryLetters" aria-label="Índice alfabético"></nav>
+        <div id="glossaryList" class="glossary"></div>
+        <div class="box empty" id="glossaryEmpty" hidden>
+          <span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span>
+          <h4>Sin resultados</h4>
+          <p>No encontramos términos que coincidan con «<span id="glossaryQuery"></span>». Probá con otra palabra.</p>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="block wrap" id="faq">
+        <h3 class="sub-title">4.2 Preguntas frecuentes</h3>
+        <div class="accordion">
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿Cuál es la diferencia entre aseguramiento y control de calidad?</button></h4>
+            <div class="acc-panel"><div><p>El aseguramiento (QA) es preventivo: se enfoca en el proceso para evitar defectos. El control (QC) es detectivo: revisa el producto para encontrar defectos antes de entregarlo.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿Scrum y Ágil son lo mismo?</button></h4>
+            <div class="acc-panel"><div><p>No. Ágil es una filosofía basada en el Manifiesto Ágil. Scrum es uno de los marcos de trabajo que aplican esa filosofía, al igual que Kanban o XP.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿Cuándo conviene usar el modelo en cascada?</button></h4>
+            <div class="acc-panel"><div><p>Cuando los requisitos están claros y estables, el dominio es conocido y existen regulaciones que exigen documentación formal en cada etapa.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿Qué significa WIP en Kanban?</button></h4>
+            <div class="acc-panel"><div><p>Work In Progress (trabajo en curso). Limitar el WIP evita que el equipo empiece demasiadas tareas a la vez y ayuda a detectar cuellos de botella.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿ISO 25000 reemplaza a ISO 9126?</button></h4>
+            <div class="acc-panel"><div><p>Sí. La familia ISO/IEC 25000 (SQuaRE) reemplazó a ISO/IEC 9126 y a ISO/IEC 14598, unificando el modelo de calidad y el proceso de evaluación.</p></div></div>
+          </div>
+          <div class="acc-item">
+            <h4><button class="acc-btn" aria-expanded="false">¿Las pruebas garantizan que no haya errores?</button></h4>
+            <div class="acc-panel"><div><p>No. Las pruebas muestran la presencia de defectos, no su ausencia. Reducen el riesgo, pero las pruebas exhaustivas son imposibles en la práctica.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enlaces -->
+      <div class="block" id="enlaces">
+        <h3 class="sub-title">4.3 Enlaces de interés</h3>
+        <p class="subtitle">Se abren en una pestaña nueva</p>
+        <div class="cards">
+          <a class="card link-card" href="https://agilemanifesto.org/iso/es/manifesto.html" target="_blank" rel="noopener noreferrer">
+            <h4>Manifiesto Ágil</h4><span class="tag">agilemanifesto.org</span><p>Texto oficial en español.</p>
+          </a>
+          <a class="card link-card" href="https://scrumguides.org/" target="_blank" rel="noopener noreferrer">
+            <h4>Guía de Scrum</h4><span class="tag">scrumguides.org</span><p>La guía oficial de Scrum.</p>
+          </a>
+          <a class="card link-card" href="https://iso25000.com/" target="_blank" rel="noopener noreferrer">
+            <h4>Portal ISO 25000</h4><span class="tag">iso25000.com</span><p>Normas SQuaRE explicadas.</p>
+          </a>
+          <a class="card link-card" href="https://www.atlassian.com/es/agile/kanban" target="_blank" rel="noopener noreferrer">
+            <h4>Kanban</h4><span class="tag">atlassian.com</span><p>Guía de Kanban de Atlassian.</p>
+          </a>
+          <a class="card link-card" href="https://www.selenium.dev/documentation/" target="_blank" rel="noopener noreferrer">
+            <h4>Selenium</h4><span class="tag">selenium.dev</span><p>Documentación oficial.</p>
+          </a>
+          <a class="card link-card" href="https://eslint.org/docs/latest/" target="_blank" rel="noopener noreferrer">
+            <h4>ESLint</h4><span class="tag">eslint.org</span><p>Documentación oficial.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ejercicios -->
+      <div class="block wrap" id="ejercicios">
+        <h3 class="sub-title">4.4 Ejercicios y casos prácticos</h3>
+        <p class="subtitle">Resolvé cada caso y después compará con la solución</p>
+
+        <article class="box exercise">
+          <h4>Ejercicio 1 · Clasificar un defecto</h4>
+          <p>Una aplicación permite iniciar sesión dejando la contraseña vacía. ¿Qué característica de ISO/IEC 25010 se ve afectada y qué tipo de prueba lo hubiera detectado?</p>
+          <button class="btn btn-outline sol-btn" aria-expanded="false">Mostrar solución</button>
+          <div class="solution" hidden>
+            <p>Afecta principalmente a la <strong>Seguridad</strong> (autenticidad / confidencialidad) y también a la <strong>Adecuación funcional</strong>. Se detecta con pruebas de caja negra usando valores vacíos y límite, ya sea en pruebas unitarias del validador o en pruebas de sistema.</p>
+          </div>
+        </article>
+
+        <article class="box exercise">
+          <h4>Ejercicio 2 · Elegir un modelo</h4>
+          <p>Un organismo público necesita un sistema con requisitos cerrados, regulaciones estrictas y auditorías en cada etapa. ¿Qué modelo recomendarías?</p>
+          <button class="btn btn-outline sol-btn" aria-expanded="false">Mostrar solución</button>
+          <div class="solution" hidden>
+            <p>El <strong>Modelo en V</strong> (o Cascada): los requisitos son estables, la documentación formal es obligatoria y el modelo en V asegura trazabilidad entre cada requisito y su prueba, algo valioso en auditorías.</p>
+          </div>
+        </article>
+
+        <article class="box exercise">
+          <h4>Ejercicio 3 · Límite WIP superado</h4>
+          <p>En un tablero Kanban la columna «En progreso» tiene límite 3 pero hay 5 tarjetas. ¿Qué debería hacer el equipo?</p>
+          <button class="btn btn-outline sol-btn" aria-expanded="false">Mostrar solución</button>
+          <div class="solution" hidden>
+            <p>Dejar de tomar trabajo nuevo, concentrarse en terminar lo empezado (colaborar entre todos sobre las tarjetas bloqueadas) y analizar el cuello de botella para ajustar el proceso o el límite.</p>
+          </div>
+        </article>
+
+        <article class="box exercise">
+          <h4>Ejercicio 4 · Eventos de Scrum</h4>
+          <p>Para un Sprint de 2 semanas, ¿cuánto dura como máximo la Sprint Planning y cuánto el Daily Scrum?</p>
+          <button class="btn btn-outline sol-btn" aria-expanded="false">Mostrar solución</button>
+          <div class="solution" hidden>
+            <p>La Sprint Planning tiene un máximo de 8 horas para un Sprint de un mes; en Sprints más cortos suele ser proporcionalmente menor (alrededor de 4 horas para 2 semanas). El Daily Scrum dura 15 minutos siempre.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Comparador -->
+      <div class="block wrap" id="comparador">
+        <h3 class="sub-title">4.5 Comparador de metodologías</h3>
+        <p class="subtitle">Elegí dos metodologías para compararlas lado a lado</p>
+
+        <div class="compare-controls">
+          <label>Metodología A
+            <select id="cmpA"></select>
+          </label>
+          <span class="vs" aria-hidden="true">vs</span>
+          <label>Metodología B
+            <select id="cmpB"></select>
+          </label>
+        </div>
+        <div class="table-wrap box">
+          <table class="compare-table" id="cmpTable"></table>
+        </div>
+      </div>
+
+      <!-- Encuesta -->
+      <div class="block wrap" id="encuesta">
+        <h3 class="sub-title">4.6 Encuesta de preferencias metodológicas</h3>
+        <p class="subtitle">Respondé 5 preguntas y descubrí qué metodología se ajusta mejor a tu forma de trabajar</p>
+
+        <div class="box wizard" id="wizard">
+          <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+          <p class="progress-label" id="progressLabel"></p>
+          <div id="wizardBody" aria-live="polite"></div>
+          <div class="wizard-nav">
+            <button class="btn btn-outline" id="wizPrev">Anterior</button>
+            <button class="btn btn-primary" id="wizNext">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. SOBRE NOSOTROS / CONTACTO ================= -->
+    <section class="section" id="contacto" data-section="contacto">
+      <h2>5. Sobre Nosotros y Contacto</h2>
+      <p class="subtitle">El equipo detrás de SGCS2026</p>
+
+      <div class="block" id="nosotros">
+        <h3 class="sub-title">5.1 Grupo Test Forge</h3>
+        <p class="subtitle">EPET N° 20 · Sistemas de Gestión de Calidad del Software · Prof. Alejandro Zeballos</p>
+        <div class="team">
+          <article class="member" tabindex="0">
+            <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-compass"/></svg></span>
+            <h4>Thiago Ledesma</h4>
+            <span class="tag">Scrum Master</span>
+            <p>Gestión y organización del equipo en Trello.</p>
+          </article>
+          <article class="member" tabindex="0">
+            <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-pen"/></svg></span>
+            <h4>Tomás Llarena</h4>
+            <span class="tag">Diseñador</span>
+            <p>Diseño visual y bocetos en Canva.</p>
+          </article>
+          <article class="member" tabindex="0">
+            <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-code"/></svg></span>
+            <h4>Joaquín Sánchez</h4>
+            <span class="tag">Programador</span>
+            <p>Armado de la estructura y los archivos del proyecto.</p>
+          </article>
+          <article class="member" tabindex="0">
+            <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-flask"/></svg></span>
+            <h4>Ezequiel Avilez</h4>
+            <span class="tag">Tester</span>
+            <p>Revisión de contenidos y validación.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="block wrap" id="formulario">
+        <h3 class="sub-title">5.2 Formulario de contacto</h3>
+        <p class="subtitle">Los campos marcados con * son obligatorios</p>
+
+        <form class="box contact-form" id="contactForm" novalidate>
+          <div class="field">
+            <label for="cNombre">Nombre *</label>
+            <input type="text" id="cNombre" name="nombre" required aria-describedby="cNombreErr" autocomplete="name">
+            <span class="error" id="cNombreErr" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="cEmail">Correo electrónico *</label>
+            <input type="email" id="cEmail" name="email" required aria-describedby="cEmailErr" autocomplete="email">
+            <span class="error" id="cEmailErr" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="cAsunto">Asunto</label>
+            <select id="cAsunto" name="asunto">
+              <option>Consulta general</option>
+              <option>Contenido de calidad</option>
+              <option>Metodologías ágiles</option>
+              <option>Reportar un error</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cMensaje">Mensaje *</label>
+            <textarea id="cMensaje" name="mensaje" rows="5" required aria-describedby="cMensajeErr"></textarea>
+            <span class="error" id="cMensajeErr" aria-live="polite"></span>
+          </div>
+          <!-- Campo trampa para bots: las personas no lo ven -->
+          <div class="trap" aria-hidden="true">
+            <label for="cSitio">Sitio web</label>
+            <input type="text" id="cSitio" name="sitio_web" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary" id="contactSubmit">Enviar mensaje</button>
+          <p class="form-note">Guardamos tus datos solo para poder responder tu consulta.</p>
+          <div class="success" id="contactSuccess" role="status" hidden></div>
+          <div class="form-error" id="contactError" role="alert" hidden></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="#inicio" class="logo">SGCS2026</a>
+        <p>Grupo Test Forge · EPET N° 20 · Sistemas de Gestión de Calidad del Software.</p>
+      </div>
+      <nav aria-label="Navegación del pie">
+        <a href="#calidad">Gestión de la Calidad</a>
+        <a href="#procesos">Procesos de Desarrollo</a>
+        <a href="#recursos">Recursos y Aprendizaje</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <p class="footer-note">Contenido con fines educativos. Contrastar siempre con la bibliografía de la materia y las normas oficiales. · <a href="admin.html" class="footer-admin">Administración</a></p>
+  </footer>
+
+  <!-- Visor de imágenes ampliadas -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen"><svg class="icon"><use href="#i-x"/></svg></button>
+    <figure>
+      <img id="lightboxImg" src="data:," alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="Volver arriba"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

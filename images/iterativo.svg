@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" font-family="Segoe UI, Arial, sans-serif">
+  <title>Modelo iterativo e incremental</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b21a8"/></marker>
+  </defs>
+  <rect width="640" height="300" fill="#ffffff"/>
+  <g fill="#ede9f8" stroke="#6b21a8" stroke-width="1.5">
+    <rect x="20" y="40" width="170" height="190" rx="12"/>
+    <rect x="235" y="40" width="170" height="190" rx="12"/>
+    <rect x="450" y="40" width="170" height="190" rx="12"/>
+  </g>
+  <g fill="none" stroke="#6b21a8" stroke-width="1.5" marker-end="url(#a)">
+    <path d="M190 135H233"/>
+    <path d="M405 135H448"/>
+  </g>
+  <g fill="#6b21a8" font-size="15" font-weight="600" text-anchor="middle">
+    <text x="105" y="68">Incremento 1</text>
+    <text x="320" y="68">Incremento 2</text>
+    <text x="535" y="68">Incremento 3</text>
+  </g>
+  <g fill="#1e293b" font-size="13" text-anchor="middle">
+    <text x="105" y="100">Planificar</text><text x="105" y="125">Diseñar</text><text x="105" y="150">Construir</text><text x="105" y="175">Probar</text>
+    <text x="320" y="100">Planificar</text><text x="320" y="125">Diseñar</text><text x="320" y="150">Construir</text><text x="320" y="175">Probar</text>
+    <text x="535" y="100">Planificar</text><text x="535" y="125">Diseñar</text><text x="535" y="150">Construir</text><text x="535" y="175">Probar</text>
+  </g>
+  <g fill="#6b21a8" font-size="13" text-anchor="middle">
+    <text x="105" y="212">Entrega v1</text>
+    <text x="320" y="212">Entrega v2</text>
+    <text x="535" y="212">Entrega v3</text>
+  </g>
+  <text x="320" y="270" fill="#64748b" font-size="13" text-anchor="middle">El producto crece y se refina con cada iteración</text>
+</svg>
