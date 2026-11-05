@@ -1,8 +1,7 @@
-/* Datos de conexión del formulario de contacto.
-   Se copian de Supabase: Project Settings > API Keys.
-   La clave "publishable" (sb_publishable_...) es pública y puede estar acá.
-   Nunca pongas acá la clave "secret" ni la de Resend. */
+/* Conexión del formulario de contacto con el mail.
+   1. Entrá a https://web3forms.com y pedí una clave con test.forge.001@gmail.com.
+   2. Te llega por correo: pegala abajo, entre las comillas.
+   La clave solo sirve para enviar mensajes a ese mail, por eso puede estar acá. */
 window.SGCS_CONFIG = {
-  supabaseUrl: '',      // https://TU-PROYECTO.supabase.co
-  publishableKey: ''    // sb_publishable_...
+  web3formsKey: ''
 };

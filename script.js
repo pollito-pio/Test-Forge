@@ -583,32 +583,38 @@
     if (firstBad) { firstBad.focus(); return; }
 
     var config = window.SGCS_CONFIG || {};
-    if (!config.supabaseUrl || !config.publishableKey) {
+    if (!config.web3formsKey) {
       showFormError('El envío del formulario todavía no está configurado.');
       return;
     }
 
     var nombre = $('#cNombre').value.trim();
+    var email = $('#cEmail').value.trim();
+    var asunto = $('#cAsunto').value;
     var controller = new AbortController();
     var timer = setTimeout(function () { controller.abort(); }, 20000);
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando…';
 
-    // La función "contacto" de Supabase guarda la consulta y envía el mail
-    fetch(config.supabaseUrl + '/functions/v1/contacto', {
+    // Web3Forms reenvía la consulta por mail; la página no guarda nada
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', apikey: config.publishableKey },
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
+        access_key: config.web3formsKey,
+        subject: 'Nueva consulta de ' + nombre + ': ' + asunto,
+        from_name: 'SGCS2026 - Test Forge',
+        replyto: email,
+        botcheck: $('#cSitio').value,
         nombre: nombre,
-        email: $('#cEmail').value.trim(),
-        asunto: $('#cAsunto').value,
-        mensaje: $('#cMensaje').value.trim(),
-        sitio_web: $('#cSitio').value
+        email: email,
+        asunto: asunto,
+        mensaje: $('#cMensaje').value.trim()
       }),
       signal: controller.signal
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
-        if (!res.ok || !body.ok) throw new Error(body.error || 'No pudimos enviar tu mensaje.');
+        if (!res.ok || !body.success) throw new Error('No pudimos enviar tu mensaje. Probá de nuevo.');
       });
     }).then(function () {
       success.textContent = '¡Gracias, ' + nombre + '! Recibimos tu mensaje y te vamos a responder por correo.';
