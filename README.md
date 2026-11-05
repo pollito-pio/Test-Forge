@@ -19,7 +19,9 @@ Tablero de Trello: [Proyecto SGCS – Test Forge](https://trello.com/invite/b/6a
 | Archivo / carpeta | Descripción |
 | --- | --- |
 | `index.html`, `styles.css`, `script.js` | Página principal |
+| `admin.html`, `admin.js` | Panel de administración |
 | `images/` | Logos e ilustraciones de los modelos |
+| `supabase/` | Función y migraciones del formulario de contacto |
 | `boceto Sprint 1.zip` | Boceto inicial de la página |
 | `Matriz de Pruebas/` | Matriz de pruebas del proyecto |
 | `Proyecto SGCS - Test Forge.docx` | Documentación del proyecto |

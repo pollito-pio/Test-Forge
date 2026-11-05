@@ -1,0 +1,4 @@
+# El formulario es público: lo llenan visitantes sin sesión iniciada.
+# La función valida la clave publicable por su cuenta (auth: 'publishable').
+[functions.contacto]
+verify_jwt = false
